@@ -1,7 +1,7 @@
 # Array dentro de array com: nome, sobrenome e email H1 XX
 # Exibir usuários cadastrados por ordem de cadastro H2 XX
 # Exibir usuários cadastrados por ordem alfabética H3 XX
-# Buscar usuário pelo nome H4 XXX
+# Buscar usuário pelo nome H4 XX
 # Remover usuário pelo email ou pelo nome H5
 # Atualizar dados do usuário buscando pelo email H6
 
