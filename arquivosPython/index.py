@@ -2,13 +2,14 @@
 # Exibir usuários cadastrados por ordem de cadastro H2 XX
 # Exibir usuários cadastrados por ordem alfabética H3 XX
 # Buscar usuário pelo nome H4 XX
-# Remover usuário pelo email ou pelo nome H5
-# Atualizar dados do usuário buscando pelo email H6
+# Remover usuário pelo email ou pelo nome H5 XX
+# Atualizar nome do usuário buscando pelo email H6  XX
 
 import os
+import sys
 
 listaDeUsuarios = [
-    {"nome": "Thiago", "Sobrenome": "Bullara", "email": "21361619@anhembi.com.br"}, 
+    {"nome": "Thiago", "sobrenome": "Bullara", "email": "21361619@anhembi.com.br"}, 
     {"nome": "Guilherme", "sobrenome": "Cabral de Moura", "email": "21601989@anhembimorumbi.edu.br"},
     {"nome": "Tiago", "sobrenome": "Klein", "email": "21631075@anhembimorumbi.edu.br"}
     ]
@@ -28,7 +29,7 @@ def menu():
 
 def cadastroDeUsuario():
     novoUsuario = {}
-    novoUsuario["nome"] = input("\nDigite o nome do usuário: ")
+    novoUsuario["nome"] = input("\nDigite o primeiro nome do usuário: ")
     novoUsuario["sobrenome"] = input("Digite o sobrenome do usuário: ")
     novoUsuario["email"] = input("Digite o email do usuário: ")
     return novoUsuario
@@ -40,7 +41,7 @@ def listarUsuariosOrdemCadastro():
     for usuario in listaDeUsuarios:
        for nome in usuario.keys():
             if(nome == "nome"):
-                print("\nUsuário número {} = ".format(listaDeUsuarios.index(usuario)),usuario["nome"])
+                print("\nUsuário número {} = ".format(listaDeUsuarios.index(usuario)),usuario["nome"] + " " + usuario["sobrenome"], "/ Email:", usuario["email"])
 
 def listarUsuariosOrdemAlfabetica():
 
@@ -52,7 +53,7 @@ def listarUsuariosOrdemAlfabetica():
                 listaEmORdemAlfabetica.append(usuario["nome"])
 
     listaEmORdemAlfabetica.sort()
-    print("\nLista de usuários em Orde Alfabética\n")
+    print("\nLista de usuários em ordem Alfabética\n")
 
     for usuario in listaEmORdemAlfabetica:
         print(usuario, "\n")
@@ -60,7 +61,7 @@ def listarUsuariosOrdemAlfabetica():
 def buscarPeloNome():
     
     flag = 0
-    nomePesquisar = input("\nInsira o nome do usuário que deseja buscar: ")
+    nomePesquisar = input("\nInsira o primeiro nome do usuário que deseja buscar: ")
 
     for usuario in listaDeUsuarios:
         for nome in usuario.values():
@@ -71,36 +72,88 @@ def buscarPeloNome():
     if flag == 0:
         print("\nUsuário não encontrado")
 
+def removerUsuario():
+    
+    flag = 0
+    emailPesquisar = input("\nInsira o email do usuário que deseja remover da lista: ")
+
+    for usuario in listaDeUsuarios:
+        for email in usuario.values():
+            if emailPesquisar == email:
+                print("\nO seguinte usuário vai ser removido: ", usuario)
+                input("\nAperte ENTER para continuar")
+                listaDeUsuarios.remove(usuario)
+                print("\nUsuário removido com sucesso!!")
+                flag = 1
+
+    if flag == 0:
+        print("\nUsuário não encontrado")
+
+def atualizarDados():
+
+    flag = 0
+    emailPesquisar = input("\nInsira o email do usuário para poder atualizar seu nome: ")
+
+    for usuario in listaDeUsuarios:
+        for email in usuario.values():
+            if emailPesquisar == email:
+                print("\nUsuário encontrado, nome atual:",usuario["nome"])
+                usuario["nome"] = input("\nInsira o novo nome: ")
+                print("\nNome do usuário atualizado com sucesso!!")
+                flag = 1
+
+    if flag == 0:
+        print("\nUsuário não encontrado")
+
 def main():
+    
     menu()
 
     opcao = int(input("Selecione uma opcao: "))
 
-    while opcao != 0: 
-        if opcao == 1:
-            umUsuario = cadastroDeUsuario()
-            listaDeUsuarios.append(umUsuario)
-            print("\nUsuário cadstrado com sucesso!!")
-            input("\nAperte Enter para continuar")
-            opcao = 7
-            limparConsole()
-        elif opcao == 2:
-            listarUsuariosOrdemCadastro()
-            input("\nAperte Enter para continuar")
-            opcao = 7
-            limparConsole()
-        elif opcao == 3:
-            listarUsuariosOrdemAlfabetica()
-            input("\nAperte Enter para continuar")
-            opcao = 7
-            limparConsole()
-        elif opcao == 4:
-            buscarPeloNome()
-            input("\nAperte Enter para continuar")
-            opcao = 7
-            limparConsole()
-        elif opcao == 7:
-            main()
+    if opcao == 0 or opcao == 1 or opcao == 2 or opcao == 3 or opcao == 4 or opcao == 5 or opcao == 6 or opcao == 7:
+        while opcao != 0: 
+            if opcao == 1:
+                umUsuario = cadastroDeUsuario()
+                listaDeUsuarios.append(umUsuario)
+                print("\nUsuário cadastrado com sucesso!!")
+                input("\nAperte ENTER para continuar")
+                opcao = 7
+                limparConsole()
+            elif opcao == 2:
+                listarUsuariosOrdemCadastro()
+                input("\nAperte ENTER para continuar")
+                opcao = 7
+                limparConsole()
+            elif opcao == 3:
+                listarUsuariosOrdemAlfabetica()
+                input("Aperte ENTER para continuar")
+                opcao = 7
+                limparConsole()
+            elif opcao == 4:
+                buscarPeloNome()
+                input("\nAperte ENTER para continuar")
+                opcao = 7
+                limparConsole()
+            elif opcao == 5:
+                removerUsuario()
+                input("\nAperte ENTER para continuar")
+                opcao = 7
+                limparConsole()
+            elif opcao == 6:
+                atualizarDados()
+                input("\nAperte ENTER para continuar")
+                opcao = 7
+                limparConsole()
+            elif opcao == 7:
+                main()
+        print("\nSistema encerrado")
+        sys.exit()
+    else: 
+        print("\nInsira uma opção válida")
+        input("\nAperte Enter para continuar")
+        limparConsole()
+        main()
 
 if __name__ == "__main__":
     main()
