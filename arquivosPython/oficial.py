@@ -81,6 +81,22 @@ def removerUsuario():
     if flag == 0:
         print("\nUsuário não encontrado")
 
+def atualizarDados():
+
+    flag = 0
+    emailPesquisar = input("\nInsira o email do usuário para poder atualizar seu nome: ")
+
+    for usuario in listaDeUsuarios:
+        for email in usuario.values():
+            if emailPesquisar == email:
+                print("\nUsuário encontrado, nome atual:",usuario["nome"])
+                usuario["nome"] = input("\nInsira o novo nome: ")
+                print("\nNome do usuário atualizado com sucesso!!")
+                flag = 1
+
+    if flag == 0:
+        print("\nUsuário não encontrado")
+
 def main():
     menu()
 
@@ -111,6 +127,11 @@ def main():
             limparConsole()
         elif opcao == 5:
             removerUsuario()
+            input("\nAperte ENTER para continuar")
+            opcao = 7
+            limparConsole()
+        elif opcao == 6:
+            atualizarDados()
             input("\nAperte ENTER para continuar")
             opcao = 7
             limparConsole()
